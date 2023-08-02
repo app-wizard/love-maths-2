@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener("click", function () {
             if (this.getAttribute("data-type") === "submit") {
-                alert("You clicked Submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -32,14 +32,40 @@ function runGame(gameType) {
 }
 
 
-function checkAnswer() { }
-function calculateCorrectAnswer() { }
+function checkAnswer() {
+    let userAnswer = parseInt(document.getElementById("answer-box").value);
+    let calculatedAnswer = calculateCorrectAnswer();
+    let isCorrect = userAnswer === calculatedAnswer[0];
+    console.log(userAnswer);
+    if (isCorrect) {
+        alert("Hey! You got it right!");
+    } else {
+        alert(`Awwww.... you answered ${userAnswer} but correct answer ${calculatedAnswer[0]}`);
+    }
+    runGame(calculatedAnswer[1]);
+}
+function calculateCorrectAnswer() {
+    let oparend1 = parseInt(document.getElementById('oparend1').innerText);
+    let oparend2 = parseInt(document.getElementById('oparend2').innerText);
+    let operator = document.getElementById('operator').innerText;
+
+    if (operator === "+") {
+        return [oparend1 + oparend2, "addition"];
+    } else {
+        alert(`Unknown operator type: ${operator}`);
+        throw `Unknown operator type: ${operator}. Aborting!`;
+    }
+
+}
 function incrementScore() { }
 function incrementWrongAnswer() { }
+
 function displayAdditionQuestion(operand1, operand2) {
     document.getElementById('oparend1').textContent = operand1;
     document.getElementById('oparend2').textContent = operand2;
     document.getElementById('operator').textContent = '+';
+
+
 }
 function subtractQuestion() { }
 function displayMultilyQuestion() { }
