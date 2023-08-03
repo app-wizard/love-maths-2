@@ -92,11 +92,16 @@ body {
     font-family: "Raleway", sans-serif;
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    color: white;
+    color: rgb(255, 255, 255);
+    background-color: rgb(17, 51, 52);
+    border-radius: 15px;
 }
 
-.btn:focus {
+.btn:focus,
+.btn:hover {
     outline: none;
+    color: rgb(127, 231, 0);
+    background-color: rgb(30, 93, 95);
 }
 
 .btn--big {

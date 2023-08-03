@@ -10,7 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
     }
-
+    document.getElementById("answer-box").addEventListener("keydown",function(event){
+        if (event.key === "Enter"){
+            checkAnswer();
+        }
+    });
     runGame("addition");
 });
 
@@ -19,13 +23,21 @@ document.addEventListener("DOMContentLoaded", function () {
  * 
  */
 function runGame(gameType) {
+    document.getElementById("answer-box").value ="";
+    document.getElementById("answer-box").focus();
 
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
     if (gameType === "addition") {
         displayAdditionQuestion(num1, num2);
-    } else {
+    } else if (gameType === "multiply") {
+        displayMultilyQuestion(num1, num2);
+    } else if (gameType === "subtract") {
+        displaysubtractQuestion(num1, num2);
+    } else if (gameType === "division") {
+        displayDivisionQuestion(num1, num2);
+    }   else {
         alert(`Unknown Game type: ${gameType}`);
         throw `Unknown Game type: ${gameType}. Aborting!`;
     }
@@ -53,18 +65,24 @@ function calculateCorrectAnswer() {
 
     if (operator === "+") {
         return [oparend1 + oparend2, "addition"];
+    } else if (operator === "x") {
+        return [oparend1 * oparend2, "multiply"];
+    } else if (operator === "-") {
+        return [oparend1 - oparend2, "subtract"];
+    } else if (operator === "/") {
+        return [oparend1 / oparend2, "division"];
     } else {
         alert(`Unknown operator type: ${operator}`);
         throw `Unknown operator type: ${operator}. Aborting!`;
     }
 
 }
-function incrementScore() { 
+function incrementScore() {
     let oldScore = parseInt(document.getElementById("score").innerText);
     document.getElementById("score").innerText = ++oldScore;
 }
 
-function incrementWrongAnswer() { 
+function incrementWrongAnswer() {
     let oldScore = parseInt(document.getElementById("incorrect").innerText);
     document.getElementById("incorrect").innerText = ++oldScore;
 }
@@ -76,5 +94,20 @@ function displayAdditionQuestion(operand1, operand2) {
 
 
 }
-function subtractQuestion() { }
-function displayMultilyQuestion() { }
+function displaysubtractQuestion(operand1, operand2){ 
+    document.getElementById('oparend1').textContent = operand1;
+    document.getElementById('oparend2').textContent = operand2;
+    document.getElementById('operator').textContent = "-";
+}
+
+function displayMultilyQuestion(operand1, operand2){
+    document.getElementById('oparend1').textContent = operand1;
+    document.getElementById('oparend2').textContent = operand2;
+    document.getElementById('operator').textContent = "x";
+}
+
+function displayDivisionQuestion(operand1, operand2){
+    document.getElementById('oparend1').textContent = operand1;
+    document.getElementById('oparend2').textContent = operand2;
+    document.getElementById('operator').textContent = "/";
+}
